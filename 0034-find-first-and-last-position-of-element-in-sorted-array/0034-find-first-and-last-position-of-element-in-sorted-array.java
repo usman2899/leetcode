@@ -12,13 +12,14 @@ class Solution {
         int end = nums.length-1;
         while (start <= end) {
             int midIdx = (start + end) / 2;
-            if (nums[midIdx] >= target) {
+            int mid = nums[midIdx];
+            if (mid >= target) {
                 end = midIdx - 1;
             }
             else {
                 start = midIdx + 1;
             }
-            if (nums[midIdx] == target) {
+            if (mid == target) {
                 idx = midIdx;
             }
         }  
@@ -32,13 +33,14 @@ class Solution {
         int end = nums.length-1;
         while (start <= end) {
             int midIdx = (start + end) / 2;
-            if (nums[midIdx] <= target) {
+            int mid = nums[midIdx];
+            if (mid <= target) {
                 start = midIdx + 1;
             }
             else {
                 end = midIdx - 1;
             }
-            if (nums[midIdx] == target) {
+            if (mid == target) {
                 idx = midIdx;
             }            
         }  
