@@ -1,4 +1,5 @@
 class Solution {
+    //RECURSIVE
     Map<Character, String> phoneMap = new HashMap<Character, String>() {{
         put('2', "abc");
         put('3', "def");
@@ -34,16 +35,6 @@ class Solution {
 
 // ITERATIVE
 //         List<String> result = new ArrayList<>();
-//         Map<Character, String> phoneMap = new HashMap<Character, String>() {{
-    //         put('2', "abc");
-    //         put('3', "def");
-    //         put('4', "ghi");
-    //         put('5', "jkl");
-    //         put('6', "mno");
-    //         put('7', "pqrs");
-    //         put('8', "tuv");
-    //         put('9', "wxyz");
-//         }};
         
 //         if (digits.isEmpty()) {
 //             return result;
