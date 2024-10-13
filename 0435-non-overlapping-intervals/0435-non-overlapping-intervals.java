@@ -1,17 +1,18 @@
-class Solution:
-    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        def sortSecond(val):
-            return val[1]
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        int n = intervals.length;
+        Arrays.sort(intervals, (a,b) -> Integer.compare(a[1], b[1]));
         
-        intervals.sort(key=sortSecond)
-        res = 0
-        currEnd = intervals[0][1]
+        int prev = 0;
+        int count = 1;
         
-        for start, end in intervals[1:]:
-            if start < currEnd:
-                res += 1
-            else:
-                currEnd = end
-            
-        return res
+        for (int i = 1; i < n; i++) {
+            if (intervals[i][0] >= intervals[prev][1]) {
+                prev = i;
+                count++;
+            }
+        }
         
+        return n - count;
+    }
+}
