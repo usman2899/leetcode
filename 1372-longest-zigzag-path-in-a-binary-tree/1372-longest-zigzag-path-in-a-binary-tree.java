@@ -17,20 +17,20 @@ class Solution {
     int maxZigzag = 0;
     
     public int longestZigZag(TreeNode root) {
-        traverse(root.left, 1, 1);
-        traverse(root.right, 0, 1);
+        traverse(root.left, true, 1);
+        traverse(root.right, false, 1);
         return maxZigzag;
     }
     
-    void traverse(TreeNode root, int left, int currZigzag) {
+    void traverse(TreeNode root, boolean left, int currZigzag) {
         if (root == null) return;
         maxZigzag = Math.max(maxZigzag, currZigzag);
-        if (left == 1) {
-            traverse(root.right, 0, currZigzag + 1);
-            traverse(root.left, 1, 1);
+        if (left == true) {
+            traverse(root.right, false, currZigzag + 1);
+            traverse(root.left, true, 1);
         } else {
-            traverse(root.right, 0, 1);
-            traverse(root.left, 1, currZigzag + 1);
+            traverse(root.right, false, 1);
+            traverse(root.left, true, currZigzag + 1);
         }
     }
     
