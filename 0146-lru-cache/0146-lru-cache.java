@@ -48,6 +48,7 @@ class LRUCache {
             remove(node);
             Node new_node = new Node(key, value);
             add(new_node);
+            map.put(key, new_node);
         }
         else {
             if (map.size() == cache_size) {
