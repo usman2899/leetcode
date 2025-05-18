@@ -1,22 +1,26 @@
-class Solution {
-    int result = Integer.MAX_VALUE;
+import java.util.*;
 
+class Solution {
     public int coinChange(int[] coins, int amount) {
-        if (amount < 1) return 0;
-        return coinChange(coins, amount, new int[amount]);
+        Map<Integer, Integer> memo = new HashMap<>();
+        int result = dfs(coins, amount, memo);
+        return result == Integer.MAX_VALUE ? -1 : result;
     }
 
-    private int coinChange(int[] coins, int rem, int[] count) {
-        if (rem < 0) return -1;
+    int dfs(int[] coins, int rem, Map<Integer, Integer> memo) {
         if (rem == 0) return 0;
-        if (count[rem - 1] != 0) return count[rem - 1];
+        if (rem < 0) return Integer.MAX_VALUE;
+        if (memo.containsKey(rem)) return memo.get(rem);
+
         int min = Integer.MAX_VALUE;
         for (int coin : coins) {
-            int res = coinChange(coins, rem - coin, count);
-            if (res >= 0 && res < min)
-                min = 1 + res;
+            int res = dfs(coins, rem - coin, memo);
+            if (res != Integer.MAX_VALUE) {
+                min = Math.min(min, res + 1);
+            }
         }
-        count[rem - 1] = (min == Integer.MAX_VALUE) ? -1 : min;
-        return count[rem - 1];
+
+        memo.put(rem, min);
+        return min;
     }
 }
