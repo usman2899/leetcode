@@ -23,8 +23,6 @@ class Solution {
             recursion(graph, graph[curr][i], tempList);
             visited[curr] = false;
             tempList.remove(tempList.size()-1);
-            // if (tempList.size() == 0) break;
         }
-        return;
     }
 }
