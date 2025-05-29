@@ -14,30 +14,18 @@
  * }
  */
 class Solution {
+    Integer max = 0;
     public int maxDepth(TreeNode root) {
-    //     int l, r, n;
-    //     l = r = n = 0; 
-    //     n = findDepth(n, l, r, root);
-    //     return n;
-    // }
-    // int findDepth(int n, int l, int r, TreeNode root) {
-    //     if (root == null) {
-    //         return n;
-    //     }
-    //     n++;
-    //     l = findDepth(n, l, r, root.left);
-    //     r = findDepth(n, l, r, root.right);
-    //     if (l>r) {
-    //         n = l;
-    //     } else {
-    //         n = r;
-    //     }
-    //     return n;
+        dfs(root, 0);
+        return max;
+    }
 
+    void dfs (TreeNode root, Integer curr) {
         if (root == null) {
-            return 0;
-        } else {
-            return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+            max = Math.max(curr,max);
+            return;
         }
+        dfs (root.left, curr+1);
+        dfs (root.right, curr+1);
     }
 }
