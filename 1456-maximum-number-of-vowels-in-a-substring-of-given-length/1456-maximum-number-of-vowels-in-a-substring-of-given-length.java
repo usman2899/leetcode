@@ -9,19 +9,17 @@ class Solution {
             }
         }
         int curr = result;
-        for (int i = 1; i <= length-k; i++) {
+        for (int i = k; i < length; i++) {
             if (curr == k) {
                 return k;
             }
-            if (set.contains(s.charAt(i-1))) {
+            if (set.contains(s.charAt(i-k))) {
                 curr--;
             }
-            if (set.contains(s.charAt(i+k-1))) {
+            if (set.contains(s.charAt(i))) {
                 curr++;
             }
-            if (curr > result) {
-                result = curr;
-            }
+            result = Math.max(curr, result);
         }                     
         return result;        
     }
