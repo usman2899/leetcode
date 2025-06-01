@@ -1,24 +1,22 @@
 class Solution {
     public boolean uniqueOccurrences(int[] arr) {
-        int len = arr.length;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < len; i++) {
-            int num = arr[i];
-            if (map.containsKey(num)) {
-                int val = map.get(num);
-                val++;
-                map.put(num, val);
-            } else {
-                map.put(num, 1);
+        Arrays.sort(arr);
+        List<Integer> occurenceList = new ArrayList<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            int cnt = 1;
+            while (i + 1 < arr.length && arr[i] == arr[i + 1]) {
+                cnt++;
+                i++;
             }
+            occurenceList.add(cnt);
         }
-        Set<Integer> set = new HashSet<>();
-        for (Integer i: map.keySet()) {
-            int val = map.get(i);
-            if (set.contains(val)) {
+
+        Collections.sort(occurenceList);
+        for (int i = 1; i < occurenceList.size(); i++) {
+            if (occurenceList.get(i).equals(occurenceList.get(i - 1))) {
                 return false;
             }
-            set.add(val);
         }
         return true;
     }
