@@ -15,14 +15,10 @@ class Solution {
         int n = 0;
 
         while(head != null) {
-            if (stack.isEmpty()) {
-                stack.push(new int[]{n, head.val});
-            } else {
-                while(!stack.isEmpty() && stack.peek()[1] < head.val) {
-                    indexLarger.add(new int[]{stack.pop()[0], head.val});
-                }
-                stack.push(new int[]{n, head.val});
+            while(!stack.isEmpty() && stack.peek()[1] < head.val) {
+                indexLarger.add(new int[]{stack.pop()[0], head.val});
             }
+            stack.push(new int[]{n, head.val});
             n++;
             head = head.next;
         }
@@ -30,7 +26,7 @@ class Solution {
         while(!stack.isEmpty()) {
             indexLarger.add(new int[]{stack.pop()[0], 0});
         }
-        
+
         int nodes = indexLarger.size();
         int[] res = new int[nodes];
 
