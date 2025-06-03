@@ -4,16 +4,20 @@ class Solution {
         int curr = 0, result = 0;
 
         for (int i = 0; i < k; i++){
-            if(set.contains(s.charAt(i))) result++;
+            if(isVowel(s.charAt(i))) result++;
         }
         curr = result;
 
         for (int i = k; i < s.length(); i++) {
-            if (set.contains(s.charAt(i))) curr++;
-            if (set.contains(s.charAt(i - k))) curr--;
+            if (isVowel(s.charAt(i))) curr++;
+            if (isVowel(s.charAt(i - k))) curr--;
             result = Math.max(curr, result);
         }
 
         return result;        
+    }
+
+    boolean isVowel(Character c) {
+        return (c.equals('a') || c.equals('e') || c.equals('i') || c.equals('o') || c.equals('u'));
     }
 }
