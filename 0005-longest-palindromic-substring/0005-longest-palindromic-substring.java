@@ -1,28 +1,20 @@
 class Solution {
     public String longestPalindrome(String s) {
-        String result = s.substring(0,1);
-        for (int i =0; i< s.length(); i++) {
-            for (int j = s.length()-1; j > i; j--) {
-                if ( isPal(s.substring(i,j+1)) && s.substring(i,j+1).length() > result.length() ) {
-                    result = s.substring(i,j+1);
-                    break;
-                }
-            }
-            if (result.length() > s.length()-i) {
-                break;
-            }
+        String res = "";
+        for (int i = 0; i < s.length(); i++) {
+            String oddPal = solve(s, i, i);
+            String evenPal = solve(s, i, i + 1);
+            if (oddPal.length() > evenPal.length() && oddPal.length() > res.length()) {
+                res = oddPal;
+            } else if (evenPal.length() > res.length()) {
+                res = evenPal;
+            } else{}
         }
-        return result;
+        return res;
     }
 
-    public Boolean isPal(String string) {
-        Boolean flag = true;
-        for(int i = 0; i < string.length()/2; i++){    
-            if(string.charAt(i) != string.charAt(string.length()-i-1)){    
-                flag = false;    
-                break;    
-            }    
-        }    
-        return flag;
+    String solve(String s, int i, int j) {
+        if (i < 0 || j == s.length() || s.charAt(i) != s.charAt(j)) return s.substring(i+1, j);
+        return solve(s, i - 1, j + 1);
     }
 }
