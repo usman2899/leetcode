@@ -1,50 +1,46 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        int[] res = new int[2];
-        res[0] = findFirst(nums, target);
-        res[1] = findLast(nums, target);
-        return res;
-    }
-    
-    int findFirst(int[] nums, int target) {
-        int idx = -1;
-        int start = 0;
-        int end = nums.length-1;
-        while (start <= end) {
-            int midIdx = (start + end) / 2;
-            int mid = nums[midIdx];
-            if (mid >= target) {
-                end = midIdx - 1;
-            }
-            else {
-                start = midIdx + 1;
-            }
-            if (mid == target) {
-                idx = midIdx;
-            }
-        }  
-        return idx;            
+        int total = nums.length;
+        int firstLow = 0;
+        int firstHigh = total - 1;
+        boolean found = false;
+        int[] result = new int[]{-1,-1};
+        int firstMid = 0;
+        int ans = 0;
 
-    }
-    
-    int findLast(int[] nums, int target) {
-        int idx = -1;
-        int start = 0;
-        int end = nums.length-1;
-        while (start <= end) {
-            int midIdx = (start + end) / 2;
-            int mid = nums[midIdx];
-            if (mid <= target) {
-                start = midIdx + 1;
+        while(firstLow <= firstHigh) {
+            firstMid = firstLow + (firstHigh-firstLow)/2;
+            if (nums[firstMid] == target) {
+                found = true;
+                break;
             }
-            else {
-                end = midIdx - 1;
+            else if (nums[firstMid] > target) firstHigh = firstMid - 1;
+            else firstLow = firstMid + 1;
+        }
+        if (!found) return result;
+
+        int secondHigh = firstMid;
+        int secondMid = 0;
+        while (firstLow <= secondHigh) {
+            secondMid = firstLow + (secondHigh - firstLow)/2;
+            if (nums[secondMid] == target) {
+                ans = secondMid;
+                secondHigh = secondMid - 1;
             }
-            if (mid == target) {
-                idx = midIdx;
-            }            
-        }  
-        return idx;
+            else firstLow = secondMid + 1;
+        }
+        result[0] = ans;
+
+        int secondLow = firstMid;
+        while (secondLow <= firstHigh) {
+            secondMid = secondLow + (firstHigh - secondLow)/2;
+            if (nums[secondMid] == target) {
+                ans = secondMid;
+                secondLow = secondMid + 1;
+            }
+            else firstHigh = secondMid - 1;
+        }
+        result[1] = ans;
+        return result;
     }
-    
 }
