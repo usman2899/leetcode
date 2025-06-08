@@ -1,41 +1,28 @@
 class Solution {
     public int compress(char[] chars) {
-        int len = chars.length;
-
+        int startingPointer = 0;
+        int currPointer = 1;
+        char currChar = chars[0];
         int count = 1;
-        char curr = chars[0];
-        int firstOccurenceOfCurr = 0;
 
-        if (len == 1) {
-            chars[firstOccurenceOfCurr] = curr;
-            return count;
-        }
-
-        for (int i = 1; i < len; i++) {
-            if (chars[i] == curr) {
-                count++;
+        while (currPointer <= chars.length) {
+            if (currPointer == chars.length || chars[currPointer] != currChar) {
+                chars[startingPointer++] = currChar;
+                if (count > 1) {
+                    char[] countArray = String.valueOf(count).toCharArray();
+                    for (char c: countArray) {
+                        chars[startingPointer++] = c;
+                    }
+                }
+                if (currPointer == chars.length) break;
+                currChar = chars[currPointer];
+                count = 1;
             } else {
-                chars[firstOccurenceOfCurr++] = curr;
-                curr = chars[i];
-                if (count > 1) {
-                    for (char num: String.valueOf(count).toCharArray()) {
-                        chars[firstOccurenceOfCurr++] = num;
-                    }
-                    count = 1;
-                }
+                count++;
             }
-
-            if (i == len-1) {
-                chars[firstOccurenceOfCurr++] = curr;
-                curr = chars[i];
-                if (count > 1) {
-                    for (char num: String.valueOf(count).toCharArray()) {
-                        chars[firstOccurenceOfCurr++] = num;
-                    }
-                    count = 1;
-                }
-            }
+            currPointer++;
         }
-        return firstOccurenceOfCurr;
+        return startingPointer;
     }
+
 }
